@@ -5,6 +5,9 @@ import App from './App';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Register from './Pages/Register';
 import Login from './Pages/Login';
+import PrivateRoute from './Layout/PrivateRoute';
+import Home from './Pages/Home';
+import Products from './Pages/Products';
 
 const router = createBrowserRouter([
   {
@@ -18,6 +21,20 @@ const router = createBrowserRouter([
       {
         path: "login",
         element: <Login />
+      },
+      {
+        path: "products",
+        element: <Products />
+      },
+      {
+        path: "home",
+        element: <PrivateRoute />,
+        children: [
+          {
+            index: true,
+            element: <Home />
+          }
+        ]
       }
     ]
   }

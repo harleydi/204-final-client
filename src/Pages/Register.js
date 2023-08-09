@@ -22,6 +22,7 @@ const Register = () => {
       }
       const registerResult = await registerUser(data)
       console.log(registerResult)
+      navigate("/login")
   }
   return (
     <div>
