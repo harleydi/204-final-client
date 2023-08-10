@@ -20,6 +20,8 @@ const Navbar = ({ isVerified, setShouldRefresh, user, setIsVerified, setUser }) 
         <div className='client-nav'>
           <Link>{user}</Link>
           {" "}
+          <Link>Cart</Link>
+          {" "}
           <Link onClick={handleLogout}>Logout</Link>
         </div>
       ) : (
