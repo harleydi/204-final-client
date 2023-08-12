@@ -4,13 +4,17 @@ import { getUserToken, removeUserToken } from './Auth/AuthLocalStorage';
 import { validateUser } from './Api/api';
 import './App.css';
 import Navbar from './Components/Navbar';
+import Cart from './Pages/Cart';
 
 function App() {
+  // let storedUserCart = JSON.parse(localStorage.getItem('cart'))
   const [userToken, setUserToken] = useState(null)
   const [user, setUser] = useState(null)
   const [isVerified, setIsVerified] = useState(false)
   const [shouldRefresh, setShouldRefresh] = useState(false)
+  const [userCart, setUserCart] = useState([])
   
+
   useEffect(() => {
     const token = getUserToken()
     setUserToken(token)
@@ -38,6 +42,14 @@ function App() {
     verifyUser()
   }, [userToken])
 
+  useEffect(() => {
+    localStorage.setItem('cart', JSON.stringify(userCart))
+  }, [userCart])
+
+  
+
+  console.log(localStorage.getItem('cart'))
+
   return (
     <div className="App">
       <Navbar 
@@ -46,9 +58,10 @@ function App() {
         setShouldRefresh={setShouldRefresh}
         setIsVerified={setIsVerified}
         setUser={setUser}
+        userCart={userCart}
       />
       <h1>App</h1>
-      <Outlet context={{ isVerified, setIsVerified, setShouldRefresh }} />
+      <Outlet context={{ isVerified, setIsVerified, setShouldRefresh, setUserCart, userCart }} />
     </div>
   );
 }

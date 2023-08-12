@@ -13,12 +13,12 @@ const Products = () => {
     }
     getAll()
   }, [])
-  console.log(allProducts)
+  
   return (
     <div>
       Products
       <span style={{ display: 'flex', flexWrap: 'wrap'}} >
-        {allProducts.map((product) => <ProductCard key={product.id} product={product} />)}
+        {allProducts.length > 0 && allProducts.map((product) => <ProductCard key={product.id} product={product} />)}
       </span>
     </div>
   )

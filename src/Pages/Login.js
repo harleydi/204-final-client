@@ -22,7 +22,7 @@ const Login = () => {
     if (loginResult) {
         setIsVerified(true)
         setUserToken(loginResult.token)
-        navigate('/products')
+        navigate('/')
     }
     setShouldRefresh(false)
   }

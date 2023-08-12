@@ -1,10 +1,10 @@
 import axios from "axios";
 import { json } from "react-router-dom";
-const baseURL = process.env.FAKER_URL
+const baseURL = process.env.REACT_APP_FAKER_URL
 
 const getProducts = async () => {
     try {
-        const response = await fetch(`http://fakestoreapi.com/products`) // Should I hide this in env?
+        const response = await fetch(`${baseURL}/products`) // Should I hide this in env?
         const data = await response.json()
         // console.log(data)
         return data

@@ -8,6 +8,7 @@ import Login from './Pages/Login';
 import PrivateRoute from './Layout/PrivateRoute';
 import Home from './Pages/Home';
 import Products from './Pages/Products';
+import Cart from './Pages/Cart';
 
 const router = createBrowserRouter([
   {
@@ -23,8 +24,12 @@ const router = createBrowserRouter([
         element: <Login />
       },
       {
-        path: "products",
+        index: true,
         element: <Products />
+      },
+      {
+        path: "cart",
+        element: <Cart />
       },
       {
         path: "home",

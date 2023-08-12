@@ -2,7 +2,7 @@ import React from 'react'
 import { Link, useOutletContext } from 'react-router-dom'
 import { removeUserToken } from '../Auth/AuthLocalStorage'
 
-const Navbar = ({ isVerified, setShouldRefresh, user, setIsVerified, setUser }) => {
+const Navbar = ({ isVerified, setShouldRefresh, user, setIsVerified, setUser, userCart }) => {
   const handleLogout = async () => {
     setShouldRefresh(true)
     const resultLogout = removeUserToken()
@@ -20,7 +20,7 @@ const Navbar = ({ isVerified, setShouldRefresh, user, setIsVerified, setUser }) 
         <div className='client-nav'>
           <Link>{user}</Link>
           {" "}
-          <Link>Cart</Link>
+          <Link to={"/cart"}>Cart({userCart.length})</Link>
           {" "}
           <Link onClick={handleLogout}>Logout</Link>
         </div>
