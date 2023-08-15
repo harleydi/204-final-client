@@ -1,13 +1,17 @@
 import React, { useState } from 'react'
 import { getOneProduct, getProducts } from '../Api/fakerData'
-import { useOutletContext } from 'react-router-dom'
+import { useNavigate, useOutletContext } from 'react-router-dom'
 
 const ProductCard = ({ product }) => {
-  const { setUserCart, userCart } = useOutletContext()
+  const { handleAddToCart, setProduct } = useOutletContext()
 
-  const handleAddToCart = (product) => {
-    setUserCart([...userCart, product])
-    // localStorage.setItem('cart', JSON.stringify(userCart))
+  const navigate = useNavigate()
+
+  
+
+  const handleViewProduct = () => {
+    setProduct(product)
+    navigate('/product-page')
   }
   
   return (
@@ -16,6 +20,7 @@ const ProductCard = ({ product }) => {
         <h2>{product.title}</h2>
         <p>{product.category}</p> 
         <h3>{product.price}</h3>
+        <button onClick={handleViewProduct}>View</button>
         <button onClick={() => handleAddToCart(product)}>Add to cart</button>
     </div>
   )

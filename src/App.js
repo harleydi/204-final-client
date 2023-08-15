@@ -13,6 +13,7 @@ function App() {
   const [isVerified, setIsVerified] = useState(false)
   const [shouldRefresh, setShouldRefresh] = useState(false)
   const [userCart, setUserCart] = useState([])
+  const [product, setProduct] = useState('')
   
 
   useEffect(() => {
@@ -46,7 +47,10 @@ function App() {
     localStorage.setItem('cart', JSON.stringify(userCart))
   }, [userCart])
 
-  
+  const handleAddToCart = (product) => {
+    setUserCart([...userCart, product])
+    // localStorage.setItem('cart', JSON.stringify(userCart))
+  }
 
   console.log(localStorage.getItem('cart'))
 
@@ -61,7 +65,7 @@ function App() {
         userCart={userCart}
       />
       <h1>App</h1>
-      <Outlet context={{ isVerified, setIsVerified, setShouldRefresh, setUserCart, userCart }} />
+      <Outlet context={{ isVerified, setIsVerified, setShouldRefresh, handleAddToCart, product, setProduct }} />
     </div>
   );
 }
