@@ -23,19 +23,31 @@ const loginUser = async (userData) => {
 
 const validateUser = async (userToken) => {
     try {
-        const response = axios.get(`${baseURL}/users/validate`, {
+        const response = await axios.get(`${baseURL}/users/validate`, {
             headers: {
                 "Authorization": `Bearer ${userToken}`
             }
         })
-        return (await response).data
+        return response.data
     } catch (error) {
         return error.response.data
     }
 }
 
+const createOrder = async (userData) => {
+    try {
+        const response = await axios.post(`${baseURL}/orders/add-order`, userData)
+        const data = await response.data
+        return data
+    } catch (error) {
+        return error.response.data
+    }
+}
+
+
 export {
     registerUser,
     loginUser,
-    validateUser
+    validateUser,
+    createOrder
 }

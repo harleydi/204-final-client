@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Outlet } from 'react-router-dom';
 import { getUserToken, removeUserToken } from './Auth/AuthLocalStorage';
-import { validateUser } from './Api/api';
+import { validateUser, currentUser } from './Api/api';
 import './App.css';
 import Navbar from './Components/Navbar';
 import Cart from './Pages/Cart';
@@ -10,10 +10,12 @@ function App() {
   // let storedUserCart = JSON.parse(localStorage.getItem('cart'))
   const [userToken, setUserToken] = useState(null)
   const [user, setUser] = useState(null)
+  const [userInfo, setUserInfo] = useState(null)
   const [isVerified, setIsVerified] = useState(false)
   const [shouldRefresh, setShouldRefresh] = useState(false)
   const [userCart, setUserCart] = useState([])
   const [product, setProduct] = useState('')
+  
   
 
   useEffect(() => {
@@ -27,7 +29,8 @@ function App() {
         const verifyResult = await validateUser(userToken)
         if (verifyResult.success) {
           console.log(verifyResult)
-          setUser(verifyResult.email)
+          setUser(verifyResult.data.email)
+          setUserInfo(verifyResult.data)
           setIsVerified(true)
         } else {
           setShouldRefresh(true)
@@ -47,12 +50,14 @@ function App() {
     localStorage.setItem('cart', JSON.stringify(userCart))
   }, [userCart])
 
+  // console.log(currentUser(user))
+
   const handleAddToCart = (product) => {
     setUserCart([...userCart, product])
     // localStorage.setItem('cart', JSON.stringify(userCart))
   }
 
-  console.log(localStorage.getItem('cart'))
+  // console.log(userInfo)
 
   return (
     <div className="App">
@@ -65,7 +70,7 @@ function App() {
         userCart={userCart}
       />
       <h1>App</h1>
-      <Outlet context={{ isVerified, setIsVerified, setShouldRefresh, handleAddToCart, product, setProduct }} />
+      <Outlet context={{ isVerified, setIsVerified, setShouldRefresh, handleAddToCart, product, setProduct, userCart, setUserInfo, setUserCart }} />
     </div>
   );
 }

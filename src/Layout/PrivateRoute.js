@@ -1,14 +1,24 @@
-import React, { useEffect, useState } from 'react'
-import Navbar from '../Components/Navbar'
-import { Outlet, useOutletContext } from 'react-router-dom'
+import React from 'react'
+import { Outlet, useNavigate, useOutletContext } from 'react-router-dom'
 
 const PrivateRoute = () => {
-  const { isVerified } = useOutletContext()
+  const { isVerified, userCart } = useOutletContext()
+  const navigate = useNavigate()
+
+  const handleNavigateToLogin = () => {
+    navigate('/login')
+  }
 
   return (
     <div>
         {/* <h1>Private Route</h1> */}
-        {isVerified && <Outlet />}
+        {!isVerified && 
+          <div>
+            <h1>Please login to continue</h1>
+            <button onClick={handleNavigateToLogin}>Login</button>
+          </div>
+        }
+        {isVerified && <Outlet context={{ userCart }} />}
     </div>
   )
 }

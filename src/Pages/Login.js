@@ -1,14 +1,15 @@
 import React, { useState } from 'react'
 import { useNavigate, useOutletContext } from 'react-router-dom'
-import { loginUser } from '../Api/api'
+import { currentUser, loginUser } from '../Api/api'
 import { setUserToken } from '../Auth/AuthLocalStorage'
 
 const Login = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  const { setIsVerified, setShouldRefresh } = useOutletContext()
+  const { setIsVerified, setShouldRefresh, user, setUserInfo } = useOutletContext()
   const navigate = useNavigate()
+
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -22,10 +23,12 @@ const Login = () => {
     if (loginResult) {
         setIsVerified(true)
         setUserToken(loginResult.token)
+        // setUserInfo(currentUser(user))
         navigate('/')
     }
     setShouldRefresh(false)
   }
+  
 
   return (
     <div>
