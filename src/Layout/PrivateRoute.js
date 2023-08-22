@@ -1,13 +1,26 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Outlet, useNavigate, useOutletContext } from 'react-router-dom'
+import { getOrders } from '../Api/api'
 
 const PrivateRoute = () => {
-  const { isVerified, userCart } = useOutletContext()
+  const [orders, setOrders] = useState([])
+  
+  const { isVerified, userCart, setUserCart, userInfo, userOrders, setUserOrders } = useOutletContext()
+  
   const navigate = useNavigate()
 
   const handleNavigateToLogin = () => {
     navigate('/login')
   }
+
+  // useEffect(() => {
+  //   const getAllOrders = async () => {
+  //     const orders = await getOrders()
+  //     setOrders(orders.data)
+  //     return orders.data
+  //   }
+  //   getAllOrders()
+  // }, [])
 
   return (
     <div>
@@ -18,7 +31,7 @@ const PrivateRoute = () => {
             <button onClick={handleNavigateToLogin}>Login</button>
           </div>
         }
-        {isVerified && <Outlet context={{ userCart }} />}
+        {isVerified && <Outlet context={{ userCart, userInfo, userOrders, setUserCart, setUserOrders, orders }} />}
     </div>
   )
 }

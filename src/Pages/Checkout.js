@@ -7,7 +7,7 @@ const Checkout = () => {
   const [orderItems, setOrderItems] = useState([])
   
 
-  const { userCart } = useOutletContext()
+  const { userCart, userInfo, setUserCart } = useOutletContext()
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -23,12 +23,16 @@ const Checkout = () => {
   const handleSubmitOrder = async (e) => {
     e.preventDefault()
     const data = {
+        orderOwner: userInfo._id,
         orderTotal: orderTotal,
         orderItems: orderItems
     }
     const order = createOrder(data)
+    setUserCart([])
     navigate('/')
   }
+
+  
 
 
   return (

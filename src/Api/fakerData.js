@@ -6,7 +6,7 @@ const getProducts = async () => {
     try {
         const response = await fetch(`${baseURL}/products`) // Should I hide this in env?
         const data = await response.json()
-        // console.log(data)
+        
         return data
     } catch (error) {
         return error

@@ -2,21 +2,14 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate, useOutletContext } from 'react-router-dom'
 
 
-const PriceBox = ({ userCart }) => {
-  const [subTotal, setSubTotal] = useState(0)
+const PriceBox = ({ userCart, subTotal }) => {
+  
 
 
 
   const navigate = useNavigate()
 
-  useEffect(() => {
-      const getTotal = userCart.reduce((acc, curr) => {
-        curr = curr.price
-        return acc + curr
-      }, 0)
-      setSubTotal(getTotal)
-
-  }, [userCart])
+  
 
   const handleCheckout = () => {
     navigate('/home/checkout')

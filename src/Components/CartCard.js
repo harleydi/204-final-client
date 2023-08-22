@@ -1,7 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useOutletContext } from 'react-router-dom'
 
-const CartCard = ({ product }) => {
+const CartCard = ({ product, subTotal, setSubTotal }) => {
+  const [quantity, setQuantity] = useState(1)
+  
+
   const { setUserCart } = useOutletContext()
 
   const handleRemoveFromCart = () => {
@@ -13,12 +16,25 @@ const CartCard = ({ product }) => {
     console.log(findItem)
   }
 
+  const incrementQuantity = () => {
+    setQuantity(quantity+1)
+    setSubTotal(Math.round(subTotal + product.price))
+  }
+
+  const decrementQuantity = () => {
+    setQuantity(quantity-1)
+    setSubTotal(Math.abs(subTotal - product.price))
+  }
 
   return (
     <div style={{ border: '2px solid black', width: '60rem'}}>
         <img style={{ height: '10rem'}} src={product.image} />
         <h1>{product.title}</h1>
-        <p>{product.price}</p>
+        <p>{product.price * quantity}</p>
+        <p>{quantity}</p>
+        <button onClick={incrementQuantity}>+</button>
+        <button onClick={decrementQuantity}>-</button>
+        <br/>
         <button onClick={handleRemoveFromCart}>Remove from Cart</button>
     </div>
   )

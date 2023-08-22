@@ -18,7 +18,7 @@ const Navbar = ({ isVerified, setShouldRefresh, user, setIsVerified, setUser, us
       <Link>Home</Link>
       {isVerified ? (
         <div className='client-nav'>
-          <Link>{user}</Link>
+          <Link to={"/home/profile"}>{user}</Link>
           {" "}
           <Link to={"/cart"}>Cart({userCart.length})</Link>
           {" "}

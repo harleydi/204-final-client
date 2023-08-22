@@ -13,6 +13,7 @@ const ProductCard = ({ product }) => {
     setProduct(product)
     navigate('/product-page')
   }
+
   
   return (
     <div className='product-card' style={{ border: "2px solid black", width: "20rem", height: "20rem", margin: '2rem' }}>

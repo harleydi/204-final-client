@@ -44,10 +44,42 @@ const createOrder = async (userData) => {
     }
 }
 
+const getProducts = async () => {
+    try {
+        const response = await axios.get(`${baseURL}/inventory/all`)
+        const data = await response.data
+        return data
+    } catch (error) {
+        return error.response.data
+    }
+}
+
+const getLimitedProducts = async (page) => {
+    try {
+        const response = await axios.get(`${baseURL}/inventory/all/limit?page=${page}`)
+        const data = await response.data
+        return data
+    } catch (error) {
+        return error.response.data
+    }
+}
+
+const getOrders = async (userId) => {
+    try {
+        const response = await axios.get(`${baseURL}/orders/by-user`)
+        const data = await response.data
+        return data.data
+    } catch (error) {
+        return error.response.data
+    }
+}
 
 export {
     registerUser,
     loginUser,
     validateUser,
-    createOrder
+    createOrder,
+    getProducts,
+    getLimitedProducts,
+    getOrders
 }

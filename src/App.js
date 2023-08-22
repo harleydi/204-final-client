@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Outlet } from 'react-router-dom';
 import { getUserToken, removeUserToken } from './Auth/AuthLocalStorage';
-import { validateUser, currentUser } from './Api/api';
+import { validateUser, currentUser, getOrders } from './Api/api';
 import './App.css';
 import Navbar from './Components/Navbar';
 import Cart from './Pages/Cart';
@@ -13,6 +13,8 @@ function App() {
   const [userInfo, setUserInfo] = useState(null)
   const [isVerified, setIsVerified] = useState(false)
   const [shouldRefresh, setShouldRefresh] = useState(false)
+  const [borders, setBorders] = useState([])
+  const [userOrders, setUserOrders] = useState([])
   const [userCart, setUserCart] = useState([])
   const [product, setProduct] = useState('')
   
@@ -29,6 +31,8 @@ function App() {
         const verifyResult = await validateUser(userToken)
         if (verifyResult.success) {
           console.log(verifyResult)
+          const orders = await getOrders()
+          setBorders(orders)
           setUser(verifyResult.data.email)
           setUserInfo(verifyResult.data)
           setIsVerified(true)
@@ -45,6 +49,18 @@ function App() {
     }
     verifyUser()
   }, [userToken])
+
+  useEffect(() => {
+    const getUserOrders = async () => {
+      
+      const userOrders = borders.filter((order) => order.orderOwner === userInfo._id)
+      setUserOrders(userOrders)
+      console.log(borders)
+      console.log(userOrders)
+    }
+    getUserOrders()
+    // const getUserOrders = orders.filter((order) => order.orderOwner === userInfo._id)
+  }, [userInfo])
 
   useEffect(() => {
     localStorage.setItem('cart', JSON.stringify(userCart))
@@ -70,7 +86,20 @@ function App() {
         userCart={userCart}
       />
       <h1>App</h1>
-      <Outlet context={{ isVerified, setIsVerified, setShouldRefresh, handleAddToCart, product, setProduct, userCart, setUserInfo, setUserCart }} />
+      <Outlet context={{ 
+          isVerified, 
+          setIsVerified,
+          setShouldRefresh, 
+          handleAddToCart, 
+          product, 
+          setProduct, 
+          userCart, 
+          setUserInfo, 
+          setUserCart, 
+          userInfo,
+          userOrders,
+          setUserOrders 
+      }} />
     </div>
   );
 }

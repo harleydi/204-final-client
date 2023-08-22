@@ -1,16 +1,28 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useOutletContext } from 'react-router-dom'
 import CartCard from '../Components/CartCard'
 import PriceBox from '../Components/PriceBox'
 
 const Cart = () => {
+  const [subTotal, setSubTotal] = useState(0)
+  
+
   const { userCart } = useOutletContext()
+
+  useEffect(() => {
+    const getTotal = userCart.reduce((acc, curr) => {
+      curr = curr.price
+      return acc + curr
+    }, 0)
+    setSubTotal(getTotal)
+
+}, [userCart])
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
       <h1>Cart</h1>
-      <PriceBox userCart={userCart} />
-      {userCart.length && userCart.map((product) => <CartCard key={product.id} product={product} />)} 
+      <PriceBox userCart={userCart} subTotal={subTotal} />
+      {userCart.length && userCart.map((product) => <CartCard key={product.id} product={product} subTotal={subTotal} setSubTotal={setSubTotal} />)} 
     </div>
   )
 }
