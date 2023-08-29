@@ -1,11 +1,15 @@
 import React, { useState } from 'react'
+import './Login.css'
 import { useNavigate, useOutletContext } from 'react-router-dom'
 import { currentUser, loginUser } from '../Api/api'
 import { setUserToken } from '../Auth/AuthLocalStorage'
+import { Button, TextField, makeStyles } from '@mui/material'
+
 
 const Login = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+
 
   const { setIsVerified, setShouldRefresh, user, setUserInfo } = useOutletContext()
   const navigate = useNavigate()
@@ -31,18 +35,18 @@ const Login = () => {
   
 
   return (
-    <div>
+    <div style={{ color: '#FFFFFF'}}>
         <h1>Login</h1>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} class="flex justify-center items-center pt-40 text-xl">
             <label>
-                Email:
-                <input value={email} onChange={(e) => setEmail(e.target.value)} />
+                Email:{" "}
+                <input class="rounded-xl bg-gray-600 outline-none px-4 text-white" value={email} onChange={(e) => setEmail(e.target.value)} />
             </label>
-            <label>
-                Password:
-                <input value={password} onChange={(e) => setPassword(e.target.value)} />
+            <label class="pl-6">
+                Password:{" "}
+                <input class="rounded-xl bg-gray-600 outline-none px-4 text-white" value={password} onChange={(e) => setPassword(e.target.value)} />
             </label>
-            <button>Submit</button>
+            <button class="btn" onClick={handleSubmit}>Submit</button>
         </form>
     </div>
   )

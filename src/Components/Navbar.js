@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link, useOutletContext } from 'react-router-dom'
 import { removeUserToken } from '../Auth/AuthLocalStorage'
+import { Button } from '@mui/material'
 
 const Navbar = ({ isVerified, setShouldRefresh, user, setIsVerified, setUser, userCart }) => {
   const handleLogout = async () => {
@@ -15,20 +16,20 @@ const Navbar = ({ isVerified, setShouldRefresh, user, setIsVerified, setUser, us
 
   return (
     <div style={{ display: 'flex', justifyContent: 'space-between'}}>
-      <Link>Home</Link>
+      <Link><button class="btn">Home</button></Link>
       {isVerified ? (
         <div className='client-nav'>
-          <Link to={"/home/profile"}>{user}</Link>
+          <Link to={"/home/profile"}><Button>{user}</Button></Link>
           {" "}
-          <Link to={"/cart"}>Cart({userCart.length})</Link>
+          <Link to={"/cart"}><button class="btn">Cart({userCart.length})</button></Link>
           {" "}
-          <Link onClick={handleLogout}>Logout</Link>
+          <Link onClick={handleLogout}><button class="btn">Logout</button></Link>
         </div>
       ) : (
         <div className='client-nav'>
-            <Link to={"/register"}>Register</Link>
+            <Link to={"/register"}><button class="btn">Register</button></Link>
             {" "}
-            <Link to={"/login"}>Login</Link>
+            <Link to={"/login"}><button class="btn">Login</button></Link>
         </div>
       )}
     </div>
@@ -36,3 +37,4 @@ const Navbar = ({ isVerified, setShouldRefresh, user, setIsVerified, setUser, us
 }
 
 export default Navbar
+

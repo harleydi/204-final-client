@@ -25,26 +25,26 @@ const Register = () => {
       navigate("/login")
   }
   return (
-    <div>
+    <div class="">
         <h1>Register</h1>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} class="flex flex-col justify-items-center items-center pt-40 text-xl">
             <label>
-                Name:
-                <input value={firstName} placeholder='First Name' onChange={(e) => setFirstName(e.target.value)} />
-                <input value={lastName} placeholder='Last Name' onChange={(e) => setLastName(e.target.value)} />
+                First Name:{" "}
+                <input value={firstName} onChange={(e) => setFirstName(e.target.value)} class="rounded-xl bg-gray-600 outline-none px-4 text-white" />
             </label>
-            <br />
-            <label>
-                Email:
-                <input value={email} onChange={(e) => setEmail(e.target.value)} />
+            <label class="mt-8">
+              Last Name:{" "}
+                <input value={lastName} onChange={(e) => setLastName(e.target.value)} class="rounded-xl bg-gray-600 outline-none px-4" />
             </label>
-            <br />
-            <label>
-                Password:
-                <input value={password} onChange={(e) => setPassword(e.target.value)} />
+            <label class="ml-12 mt-8">
+                Email:{" "}
+                <input value={email} onChange={(e) => setEmail(e.target.value)} class="rounded-xl bg-gray-600 outline-none px-4" />
             </label>
-            <br />
-            <button>Submit</button>
+            <label class="mt-8">
+                Password:{" "}
+                <input value={password} onChange={(e) => setPassword(e.target.value)} class="rounded-xl bg-gray-600 outline-none px-4" />
+            </label>
+            <button class="btn">Submit</button>
         </form>
     </div>
   )

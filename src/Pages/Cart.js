@@ -20,9 +20,8 @@ const Cart = () => {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-      <h1>Cart</h1>
       <PriceBox userCart={userCart} subTotal={subTotal} />
-      {userCart.length && userCart.map((product) => <CartCard key={product.id} product={product} subTotal={subTotal} setSubTotal={setSubTotal} />)} 
+      {userCart.length > 0 && userCart.map((product) => <CartCard key={product.id} product={product} subTotal={subTotal} setSubTotal={setSubTotal} />)} 
     </div>
   )
 }

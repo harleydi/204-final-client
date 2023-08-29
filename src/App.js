@@ -85,7 +85,6 @@ function App() {
         setUser={setUser}
         userCart={userCart}
       />
-      <h1>App</h1>
       <Outlet context={{ 
           isVerified, 
           setIsVerified,
@@ -98,7 +97,8 @@ function App() {
           setUserCart, 
           userInfo,
           userOrders,
-          setUserOrders 
+          setUserOrders,
+          shouldRefresh
       }} />
     </div>
   );

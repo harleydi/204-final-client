@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import ProductCard from '../Components/ProductCard'
 import { getLimitedProducts, getProducts } from '../Api/api'
-import { Pagination } from '@mui/material'
+import { FormControl, InputLabel, MenuItem, Pagination, Select } from '@mui/material'
+import { deepOrange, indigo } from '@mui/material/colors'
+import { BorderColor } from '@mui/icons-material'
+import { useOutletContext } from 'react-router-dom'
 
 const Products = () => {
   const [allProducts, setAllProducts] = useState([])
@@ -9,6 +12,8 @@ const Products = () => {
   const [sortOption, setSortOption] = useState('Recommended')
   const [categoryOption, setCategoryOption] = useState('')
   const [page, setPage] = useState(0)
+
+  const { setShouldRefresh, shouldRefresh } = useOutletContext()
 
 
   useEffect(() => {
@@ -32,31 +37,38 @@ const Products = () => {
   }, [page])
 
   useEffect(() => {
-    const handleSort = () => {
+    const handleSort = async () => {
       if (categoryOption === 'Electronics') {
-         const electronics = allProducts.filter((item) => item.category === categoryOption.toLowerCase())
-         setAllProducts(electronics)
+        const electronics = allProducts.filter((item) => item.category === categoryOption.toLowerCase())
+        console.log(electronics)
+        setLimitedProducts(electronics)
       } else if (categoryOption === 'Jewelery') {
          const jewelery = allProducts.filter((item) => item.category === categoryOption.toLowerCase())
-         setAllProducts(jewelery)
+         setLimitedProducts(jewelery)
       } else if (categoryOption === "Men's clothing") {
         const mens = allProducts.filter((item) => item.category === categoryOption.toLowerCase())
-        setAllProducts(mens)
+        setLimitedProducts(mens)
      } else if (categoryOption === "Women's clothing") {
       const womens = allProducts.filter((item) => item.category === categoryOption.toLowerCase())
-      setAllProducts(womens)
-   }
+      setLimitedProducts(womens)
+     } else {
+      const data = await getLimitedProducts(page)
+      setLimitedProducts(data.data)
+     }
     }
     handleSort()
   }, [categoryOption])
+
+  const renderProducts = (arr, ) => {
+
+  }
   
   return (
     <div>
-      Products
       <form style={{ display: 'flex', justifyContent: 'space-around'}}>
         <label>
           Sort:{" "}
-          <select onChange={(e) => setSortOption(e.target.value)}>
+          <select class="bg-transparent font-light outline-none" onChange={(e) => setSortOption(e.target.value)}>
             <option>Recommended</option>
             <option>Lowest</option>
             <option>Highest</option>
@@ -65,7 +77,7 @@ const Products = () => {
         {" "}
         <label>
           Category:{" "}
-          <select onChange={(e) => setCategoryOption(e.target.value)}>
+          <select class="bg-transparent font-light outline-none" onChange={(e) => setCategoryOption(e.target.value)}>
             <option>All</option>
             <option>Electronics</option>
             <option>Jewelery</option>
@@ -81,7 +93,8 @@ const Products = () => {
         count={3}
         // page={page}
         onChange={(e) => setPage(Number(e.target.textContent) - 1)} 
-        style={{ display: 'flex', justifyContent: 'center' }} 
+        style={{ display: 'flex', justifyContent: 'center' }}
+        sx={{ color: 'white'}} 
       />
     </div>
   )
